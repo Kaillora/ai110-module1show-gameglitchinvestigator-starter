@@ -14,3 +14,10 @@ def test_guess_too_low():
     # If secret is 50 and guess is 40, hint should be "Too Low"
     result = check_guess(40, 50)
     assert result == "Too Low"
+
+def test_string_secret_compares_numerically():
+    # app.py passes the secret as a string on even attempts. As strings, "9" > "50"
+    # alphabetically, so a guess of 9 would wrongly be "Too High" instead of "Too Low".
+    outcome, message = check_guess(9, "50")
+    assert outcome == "Too Low"
+    assert message == "📈 Go HIGHER!"
